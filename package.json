@@ -2,7 +2,8 @@
   "name": "discordaibot",
   "version": "1.0.0",
   "description": "A bot that trained over Professor Knowledge",
-  "main": "Discordbot.js",
+  "type": "module",
+  "main": "OpenAi/OpenAi.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/madhvantyagi/DiscordAiBot/issues"
   },
-  "homepage": "https://github.com/madhvantyagi/DiscordAiBot#readme"
+  "homepage": "https://github.com/madhvantyagi/DiscordAiBot#readme",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5",
+    "openai": "^4.29.2"
+  }
 }
