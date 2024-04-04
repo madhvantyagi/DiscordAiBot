@@ -20,5 +20,4 @@ const threadCreate = async () => {
 };
 
 export { threadCreate };
-
 //what professor said about transaction and concurrency
