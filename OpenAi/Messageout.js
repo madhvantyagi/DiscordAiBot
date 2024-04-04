@@ -1,12 +1,12 @@
 import { OpenAI } from "openai";
 import { config } from "dotenv";
 import fs from "fs";
-config();
+config({ path: "../.env" });
 import { threadCreate } from "./OpenAi.js";
 
 const assistant_id = process.env.ASSISTANT_ID;
 const api_id = process.env.API_KEY;
-
+console.log(api_id, assistant_id);
 const openai = new OpenAI({
   apiKey: api_id,
 });
@@ -34,7 +34,7 @@ const threadOutput = async (UserMessage) => {
       status = run2.status;
       console.log(status);
       if (status === "completed") {
-        return run2;
+        break;
       }
       await new Promise((resolve) => setTimeout(resolve, 2000)); // 2 seconds delay
     }
@@ -42,5 +42,10 @@ const threadOutput = async (UserMessage) => {
   await waitCompleteion(thread, run.id);
 
   const messages = await openai.beta.threads.messages.list(thread);
-  console.log(messages.body.data[0].content);
+
+  console.log(messages.body.data[0].content[0].text.value);
+  return messages.body.data[0].content[0].text.value;
 };
+// threadOutput("what is relation algebra");
+
+export { threadOutput };

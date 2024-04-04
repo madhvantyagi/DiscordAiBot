@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A bot that trained over Professor Knowledge",
   "type": "module",
-  "main": "OpenAi/OpenAi.js",
+  "main": "Discord/Discord.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

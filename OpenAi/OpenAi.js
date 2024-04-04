@@ -1,7 +1,7 @@
 import { OpenAI } from "openai";
 import { config } from "dotenv";
 import fs from "fs";
-config();
+config({ path: "../.env" });
 import readline from "readline";
 
 const assistant_id = process.env.ASSISTANT_ID;
@@ -15,7 +15,7 @@ const threadCreate = async () => {
   const assistant = await openai.beta.assistants.retrieve(assistant_id);
   const thread = await openai.beta.threads.create();
   const data = thread.id + "%" + assistant.id;
-  console.log(thread);
+  // console.log(thread);
   return thread.id;
 };
 
