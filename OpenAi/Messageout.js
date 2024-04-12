@@ -3,6 +3,7 @@ import { config } from "dotenv";
 import fs from "fs";
 config({ path: "../.env" });
 import { threadCreate } from "./OpenAi.js";
+import { userDatabase } from "./TempDatabase.js";
 
 const assistant_id = process.env.ASSISTANT_ID;
 const api_id = process.env.API_KEY;
@@ -11,7 +12,37 @@ const openai = new OpenAI({
   apiKey: api_id,
 });
 
-const thread = await threadCreate();
+let thread;
+
+const extractDatabase = async (authorID, message, command) => {
+  const dbValue = userDatabase.authorID;
+  if (dbValue === undefined) {
+    const newthread = await threadCreate();
+    userDatabase[authorID] = [newthread];
+    console.log(userDatabase);
+    thread = newthread;
+    console.log("first thread created");
+  } else if (command === "/newThread") {
+    // creating new thread they
+    const newthread2 = await threadCreate();
+    userDatabase[authorID].push(newthread2);
+    console.log(userDatabase);
+
+    thread = newthread2;
+    console.log("user wanna new thread created");
+  } else {
+    // taking the last thread they created
+    const arr = userDatabase.authorID;
+    console.log(userDatabase);
+
+    thread = arr[arr.length - 1];
+    console.log("retriving last thread existed");
+  }
+
+  const response = await threadOutput(message);
+  return response;
+};
+
 const threadOutput = async (UserMessage) => {
   //This line passing message to that specific thread (thread is nothing but just a queue of chat for a user)
   const messagess = await openai.beta.threads.messages.create(thread, {
@@ -46,6 +77,7 @@ const threadOutput = async (UserMessage) => {
   console.log(messages.body.data[0].content[0].text.value);
   return messages.body.data[0].content[0].text.value;
 };
+
 // threadOutput("what is relation algebra");
 
-export { threadOutput };
+export { threadOutput, extractDatabase };

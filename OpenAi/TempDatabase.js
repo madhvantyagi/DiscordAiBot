@@ -1,0 +1,2 @@
+const userDatabase = {};
+export { userDatabase };
