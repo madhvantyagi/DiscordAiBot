@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Upload</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.1/min/dropzone.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+      .dropzone {
+        box-shadow: 0px 2px 20px 0px #f2f2f2;
+        border: 1px dashed #c0ccda;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #fbfdff;
+        margin-left: 15px;
+        margin-bottom: 15px;
+        margin-top: 15px;
+        min-height: 200px;
+      }
+    </style>
+    <script type="text/javascript">
+      Dropzone.options.myDropzone = {
+        autoProcessQueue: false,
+        uploadMultiple: true,
+        parallelUploads: 10,
+        maxFiles: 10,
+        maxFilesize: 1024,
+        timeout: 3600000,
+        sendingmultiple: true,
+        init: function () {
+          var myDropzone = this;
+
+          // Add a hidden input field for sending files as form data
+          var hiddenFileInput = document.createElement("input");
+          hiddenFileInput.name = "file";
+          hiddenFileInput.type = "file";
+          hiddenFileInput.multiple = true;
+          myDropzone.element.appendChild(hiddenFileInput);
+
+          // Remove the default "Upload Files" button
+          var defaultButton = myDropzone.element.querySelector(".dz-message");
+          defaultButton.style.display = "none";
+        },
+      };
+    </script>
+  </head>
+
+  <body>
+    <section class="bg-light mt-5">
+      <div class="container"></div>
+      <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="form-wrapper py-5">
+            <form
+              action="/upload"
+              class="dropzone"
+              id="my-dropzone"
+              method="POST"
+              enctype="multipart/form-data"
+            >
+              <div class="form-group">
+                <label for="myFormData">Example Form Data</label>
+                <input
+                  type="text"
+                  name="myFormData"
+                  id="myFormData"
+                  placeholder="Enter your data"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
