@@ -1,5 +1,6 @@
 import { OpenAI } from "openai";
 import { config } from "dotenv";
+
 import fs from "fs";
 config({ path: "../.env" });
 import readline from "readline";

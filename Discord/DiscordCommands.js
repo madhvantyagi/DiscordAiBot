@@ -2,13 +2,6 @@ import { REST, Routes, SlashCommandBuilder } from "discord.js";
 
 import { config } from "dotenv";
 config({ path: "../.env" });
-// const commands = [
-//   {
-//     name: "ask",
-//     description:
-//       "Artifical Intelligence that answers your Professor questions ",
-//   },
-// ];
 
 const commands = new SlashCommandBuilder()
   .setName("danielleavit")
